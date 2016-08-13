@@ -11,8 +11,6 @@ Planetoid.GameUpdateMessageProcessor = function (gameDetails, soundPlayer, displ
     function handleEvent(gameEvent, gameModel) {
         soundPlayer.playSound(gameEvent);
 
-        console.log("received game event " + gameEvent);
-
         if (gameEvent == 'GameOver') {
             handleGameOver(gameModel);
         } else if (gameEvent == 'PlayerLoseLife' || gameEvent == 'RoundInitialised' || gameEvent == 'RoundStart') {
