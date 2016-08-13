@@ -20,13 +20,13 @@ class PlanetoidsGameServiceFactory {
     val factory = new GameContainerFactory(rocketFactory)
     val roundCompleteUpdater = new RoundCompleteUpdater(rocketFactory)
     val explosionGameUpdater = new ExplosionHandlingGameUpdater
-     val updaters = Vector(
-       roundCompleteUpdater,
-       positionUpdater,
-       collisionUpdater,
-       missileFireUpdater,
-       planetMissileCollisionUpdater,
-       explosionGameUpdater)
+    val updaters = Vector(
+      positionUpdater,
+      collisionUpdater,
+      missileFireUpdater,
+      planetMissileCollisionUpdater,
+      explosionGameUpdater,
+      roundCompleteUpdater)
     val modelUpdater = new GameUpdater(updaters, roundStartUpdater, roundCompleteCountdownUpdater)
     val manager = new GameManager(modelUpdater)
     val service = new PlanetoidsGameService(manager, factory)
