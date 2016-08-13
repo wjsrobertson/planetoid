@@ -4,9 +4,9 @@ var Planetoid = Planetoid || {};
 
 Planetoid.Config = {
 
-    webRoot: 'http://' + location.host + '/planetoid/',
+    webRoot: 'http://' + location.host,
 
-    websocketUrl: 'ws:/' + location.host + '/planetoid/websocket',
+    websocketUrl: 'ws:/' + location.host + '/websocket',
 
     sounds: [{
         name: 'GameOver',
