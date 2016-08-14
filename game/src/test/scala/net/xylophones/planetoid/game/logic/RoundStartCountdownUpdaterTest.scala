@@ -18,7 +18,7 @@ class RoundStartCountdownUpdaterTest extends FunSuite with Matchers with Mockito
 
   test("RoundStart event is triggered when timer runs out") {
     // given
-    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundTimer = RoundCountdownTimer(0, 1000, 600))
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundStartTimer = RoundCountdownTimer(0, 1000, 600))
     when(currentTimeSource.currentTime()).thenReturn(1600)
 
     // when
@@ -26,13 +26,13 @@ class RoundStartCountdownUpdaterTest extends FunSuite with Matchers with Mockito
 
     // then
     result.events should contain(GameEvent.RoundStart)
-    result.model.roundTimer.remainingTimeMs shouldBe 0
-    result.model.roundTimer.round shouldBe 1
+    result.model.roundStartTimer.remainingTimeMs shouldBe 0
+    result.model.roundStartTimer.round shouldBe 1
   }
 
   test("RoundStart event is not triggered when timer has not run out") {
     // given
-    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundTimer = RoundCountdownTimer(0, 1000, 600))
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundStartTimer = RoundCountdownTimer(0, 1000, 600))
     when(currentTimeSource.currentTime()).thenReturn(1599)
 
     // when
@@ -40,8 +40,8 @@ class RoundStartCountdownUpdaterTest extends FunSuite with Matchers with Mockito
 
     // then
     result.events should not contain (GameEvent.RoundStart)
-    result.model.roundTimer.remainingTimeMs shouldBe 1
-    result.model.roundTimer.round shouldBe 0
+    result.model.roundStartTimer.remainingTimeMs shouldBe 1
+    result.model.roundStartTimer.round shouldBe 0
   }
 
 }

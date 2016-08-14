@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.model.{GamePhysics, PlayerInput, GameEvent, GameModel}
+import net.xylophones.planetoid.game.model._
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
 import org.scalatest.{FunSuite, Matchers}
@@ -15,10 +15,9 @@ class GameMissileFireUpdaterTest extends FunSuite with Matchers {
     // given
     val model = GameModel(createDummyPlanet(), createDummyPlayers())
     val player1Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = true)
-    val player2Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = false)
 
     // when
-    val result = underTest.update(resultFromModel(model), new GamePhysics(),  Vector(player1Input, player2Input))
+    val result = underTest.update(resultFromModel(model), new GamePhysics(),  Vector(player1Input, noInput))
 
     // then
     val newModel = result.model
@@ -33,4 +32,38 @@ class GameMissileFireUpdaterTest extends FunSuite with Matchers {
     events.contains(GameEvent.MissileFired) shouldBe true
   }
 
+  def noInput: PlayerInput = {
+    val player2Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = false)
+    player2Input
+  }
+
+  test("missile does not get launched when round start timer is in progress") {
+    // given
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundStartTimer=RoundCountdownTimer(remainingTimeMs=100))
+    val player1Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = true)
+
+    // when
+    val result = underTest.update(resultFromModel(model), new GamePhysics(),  Vector(player1Input, noInput))
+
+    // then
+    result.model.players.p1.missiles should have size 0
+
+    // and
+    result.events.contains(GameEvent.MissileFired) shouldBe false
+  }
+
+  test("missile does not get launched when round end timer is in progress") {
+    // given
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundEndTimer=Some(RoundCountdownTimer(remainingTimeMs=100)))
+    val player1Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = true)
+
+    // when
+    val result = underTest.update(resultFromModel(model), new GamePhysics(),  Vector(player1Input, noInput))
+
+    // then
+    result.model.players.p1.missiles should have size 0
+
+    // and
+    result.events.contains(GameEvent.MissileFired) shouldBe false
+  }
 }

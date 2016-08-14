@@ -17,7 +17,7 @@ class GameContainerFactory(rocketFactory: RocketFactory) {
     val player2 = Player(p2Rocket, phys.numLives)
 
     val roundTimer = RoundCountdownTimer(remainingTimeMs = phys.roundStartDelayMilliseconds)
-    val model = GameModel(planet, Players(player1, player2), roundTimer = roundTimer)
+    val model = GameModel(planet, Players(player1, player2), roundStartTimer = roundTimer)
 
     new GameContainer(uuid, player1Id, player2Id, phys, model, PlayerInput(), PlayerInput())
   }

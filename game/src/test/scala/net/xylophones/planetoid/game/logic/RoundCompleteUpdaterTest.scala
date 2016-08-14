@@ -25,7 +25,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // then
     result.model.winner shouldBe Winner.Player1
     result.events should contain(GameEvent.GameOver)
-    result.model.roundTimer.round shouldBe 0
+    result.model.roundStartTimer.round shouldBe 0
   }
 
   test("player 2 wins and round not incremented when player 1 has no lives left and a PlayerLoseLife has been triggered") {
@@ -40,7 +40,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // then
     result.model.winner shouldBe Winner.Player2
     result.events should contain(GameEvent.GameOver)
-    result.model.roundTimer.round shouldBe 0
+    result.model.roundStartTimer.round shouldBe 0
   }
 
   test("draw and round not incremented when both player 1 and player 2 have no lives left and a PlayerLoseLife has been triggered") {
@@ -55,7 +55,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // then
     result.model.winner shouldBe Winner.Draw
     result.events should contain(GameEvent.GameOver)
-    result.model.roundTimer.round shouldBe 0
+    result.model.roundStartTimer.round shouldBe 0
   }
 
   test("no winner and round incremented when both players have lives left and a PlayerLoseLife has been triggered") {
@@ -70,7 +70,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // then
     result.model.winner shouldBe Winner.None
     result.events should not contain (GameEvent.GameOver)
-    result.model.roundTimer.round shouldBe 1
+    result.model.roundStartTimer.round shouldBe 1
   }
 
   test("if no winner then players positions are reset, round initialised event is triggered, end round timer is None and no explosions") {

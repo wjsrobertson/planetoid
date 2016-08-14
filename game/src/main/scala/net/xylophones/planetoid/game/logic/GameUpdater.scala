@@ -19,5 +19,5 @@ class GameUpdater(gameModelResultUpdaters: IndexedSeq[GameModelResultUpdater], r
 
   def isRoundEndCountdownInProgress(model: GameModel) = model.roundEndTimer.isDefined && ! model.roundEndTimer.get.isComplete
 
-  def isRoundStartCountdownInProgress(model: GameModel) = ! model.roundTimer.isComplete
+  def isRoundStartCountdownInProgress(model: GameModel) = ! model.roundStartTimer.isComplete
 }

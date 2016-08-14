@@ -24,7 +24,7 @@ class GameUpdaterTest extends FunSuite with Matchers with MockitoSugar {
     // given
     val physics = new GamePhysics
     val input: Vector[PlayerInput] = Vector()
-    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundTimer = roundTimer)
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundStartTimer = roundTimer)
 
     when(roundTimer.isComplete).thenReturn(true)
 
@@ -38,7 +38,7 @@ class GameUpdaterTest extends FunSuite with Matchers with MockitoSugar {
 
   test("round start check is performed when timer is not complete") {
     // given
-    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundTimer = roundTimer)
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundStartTimer = roundTimer)
     when(roundTimer.isComplete).thenReturn(false)
 
     // when

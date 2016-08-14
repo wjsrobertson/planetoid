@@ -212,16 +212,16 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
             var gameModel = gameDetails.getGameModel();
 
             if (gameModel) {
-                if (gameModel.roundTimer.remainingTimeMs > 300) {
+                if (gameModel.roundStartTimer.remainingTimeMs > 300) {
                     var rocket = gameDetails.isPlayer1() ? gameModel.players.p1.rocket : gameModel.players.p2.rocket;
-                    showPlayerHighlight(rocket, [_entities.highlight1, _entities.highlight2, _entities.highlight3], gameModel.roundTimer.remainingTimeMs);
+                    showPlayerHighlight(rocket, [_entities.highlight1, _entities.highlight2, _entities.highlight3], gameModel.roundStartTimer.remainingTimeMs);
                 } else {
                     hidePlayerHighlight();
                 }
 
                 drawPlanet();
 
-                if (gameModel.roundTimer.remainingTimeMs < 1000
+                if (gameModel.roundStartTimer.remainingTimeMs < 1000
                     && ((!gameModel.roundEndTimer) || (gameModel.roundEndTimer.remainingTimeMs > 0))
                 ) {
                     renderPlayer(gameModel.players.p1, _entities.player1, _entities.player1Missile);

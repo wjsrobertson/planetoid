@@ -5,7 +5,7 @@ import net.xylophones.planetoid.game.model.{RoundCountdownTimer, GameModel, Game
 class RoundStartCountdownUpdater(currentTimeSource: CurrentTimeSource) {
 
   def updateRoundTimer(model: GameModel) = {
-    val timer = model.roundTimer
+    val timer = model.roundStartTimer
 
     val now = currentTimeSource.currentTime()
     val msSinceLastUpdate = now - timer.lastTimeStampMs
@@ -19,7 +19,7 @@ class RoundStartCountdownUpdater(currentTimeSource: CurrentTimeSource) {
 
     val events: Set[GameEvent.Value] = if (isNewRound) Set(GameEvent.RoundStart)
                                        else Set.empty
-    val newModel = model.copy(roundTimer = newRoundTimer)
+    val newModel = model.copy(roundStartTimer = newRoundTimer)
 
     new GameModelUpdateResult(newModel, events)
   }

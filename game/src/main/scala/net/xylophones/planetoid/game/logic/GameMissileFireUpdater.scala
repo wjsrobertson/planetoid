@@ -5,6 +5,18 @@ import net.xylophones.planetoid.game.model._
 class GameMissileFireUpdater extends GameModelResultUpdater {
 
   override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
+    if (! isGameInPlay(initialResult.model)) {
+      initialResult
+    } else {
+      createUpdatedGameModel(initialResult, physics, playerInputs)
+    }
+  }
+
+  def isGameInPlay(model: GameModel) = {
+    model.roundStartTimer.isComplete && (!model.roundEndTimer.isDefined || (model.roundEndTimer.isDefined && model.roundEndTimer.get.isComplete))
+  }
+
+  def createUpdatedGameModel(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
     val model = initialResult.model
     val numMissilesAtStart = getNumMissiles(model)
 
